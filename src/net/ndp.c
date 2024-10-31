@@ -1232,6 +1232,13 @@ ipv6conf_rx_router_advertisement ( struct net_device *netdev,
 		return 0;
 	}
 
+	else if ( ( rc = start_dhcpv6 ( &ipv6conf->dhcp, netdev, router, 0 ) ) != 0) {
+		ipv6conf_done ( ipv6conf, rc );
+		return rc;
+	}
+
+	return 0;
+
 	/* Otherwise, terminate autoconfiguration */
 	ipv6conf_done ( ipv6conf, 0 );
 
